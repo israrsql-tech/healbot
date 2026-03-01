@@ -1,0 +1,15 @@
+{
+  "short_name": "HealBot",
+  "name": "HealBot - Medicine Reminder",
+  "icons": [
+    { "src": "/healbot-192-v2.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/healbot-512-v2.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#0ea5e9",
+  "background_color": "#ffffff"
+}
+
+
+
