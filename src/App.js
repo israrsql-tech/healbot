@@ -140,8 +140,10 @@ const validateFamilyForm = (form) => {
 };
 
 const App = () => {
-  const [currentPage, setCurrentPage] = useState('login');
-  const [user, setUser] = useState(null);
+const [currentPage, setCurrentPage] = useState(
+  localStorage.getItem('currentPage') || 'login'
+);  
+ const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem('token') || '');
   const [theme, setTheme] = useState(getInitialTheme());
 
@@ -229,6 +231,12 @@ const App = () => {
   useEffect(() => {
     applyTheme(theme);
   }, [theme]);
+
+
+  useEffect(() => {
+  localStorage.setItem('currentPage', currentPage);
+}, [currentPage]);
+
 
 // Alarm checker (10 min before)
 useEffect(() => {
@@ -346,7 +354,6 @@ useEffect(() => {
   if (savedToken) {
     setToken(savedToken);
     axios.defaults.headers.common['Authorization'] = `Bearer ${savedToken}`;
-    setCurrentPage('dashboard');   // 👈 THIS WAS MISSING
   } else {
     setCurrentPage('login');
   }
@@ -546,6 +553,8 @@ useEffect(() => {
 
   const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('currentPage');   // 👈 add this
+
     setToken('');
     delete axios.defaults.headers.common['Authorization'];
     setUser(null);
