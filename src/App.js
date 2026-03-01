@@ -340,13 +340,17 @@ useEffect(() => {
   }, [currentPage, token]);
 
   // Token load on app start
-  useEffect(() => {
-    const savedToken = localStorage.getItem('token');
-    if (savedToken) {
-      setToken(savedToken);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${savedToken}`;
-    }
-  }, []);
+useEffect(() => {
+  const savedToken = localStorage.getItem('token');
+
+  if (savedToken) {
+    setToken(savedToken);
+    axios.defaults.headers.common['Authorization'] = `Bearer ${savedToken}`;
+    setCurrentPage('dashboard');   // 👈 THIS WAS MISSING
+  } else {
+    setCurrentPage('login');
+  }
+}, []);
 
   useEffect(() => {
     if (!token) return;
